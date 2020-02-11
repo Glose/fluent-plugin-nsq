@@ -27,7 +27,7 @@ NSQ daemons are discovered through lookupd.
       type nsq
       buffer_type file
       buffer_path /var/log/fluent/msgbus
-      nsqlookupd 127.0.0.1:4161
+      nsqd 127.0.0.1:4150
       topic logs
     </match>
 

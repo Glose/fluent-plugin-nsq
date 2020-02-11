@@ -9,7 +9,7 @@ module Fluent::Plugin
     Fluent::Plugin.register_output('nsq', self)
 
     config_param :topic, :string, default: nil
-    config_param :nsqlookupd, :array, default: nil
+    config_param :nsqd, :array, default: nil
 
     config_section :buffer do
       config_set_default :chunk_keys, ['tag']
@@ -18,14 +18,14 @@ module Fluent::Plugin
     def configure(conf)
       super
 
-      fail Fluent::ConfigError, 'Missing nsqlookupd' unless @nsqlookupd
+      fail Fluent::ConfigError, 'Missing nsqd' unless @nsqd
       fail Fluent::ConfigError, 'Missing topic' unless @topic
     end
 
     def start
       super
       @producer = Nsq::Producer.new(
-        nsqlookupd: @nsqlookupd,
+        nsqd: @nsqd,
         topic: @topic
       )
     end
